@@ -1,0 +1,40 @@
+{
+  "timezone": "America/Denver",
+  "business_hours": {
+    "monday": "8am-5pm",
+    "tuesday": "8am-5pm",
+    "wednesday": "8am-5pm",
+    "thursday": "8am-5pm",
+    "friday": "8am-5pm",
+    "saturday": "closed",
+    "sunday": "closed"
+  },
+  "emergency_types": [
+    {
+      "type": "sprinkler_leak",
+      "description": "Active sprinkler leak on premises",
+      "priority": "high"
+    },
+    {
+      "type": "fire_alarm_trigger",
+      "description": "Fire alarm has been triggered",
+      "priority": "high"
+    }
+  ],
+  "routing_rules": [
+    {
+      "condition": "after hours emergency",
+      "destination": "403-870-8494",
+      "transfer_timeout_seconds": 60
+    }
+  ],
+  "transfer_destinations": ["403-870-8494"],
+  "fallback_logic": "If transfer fails, take name and number and assure callback within 30 minutes.",
+  "integrations": [
+    {
+      "system": "ServiceTrade",
+      "rule": "Do not create sprinkler jobs",
+      "restriction": "Log request only, do not open a work order"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+Alright, so this is Marcus again from Silverline Fire Protection. We spoke during the demo and I wanted to go through the full onboarding today.
+
+So our business hours are Monday through Friday, 8am to 5pm. We are in Mountain Standard Time, so that's America/Denver. Saturday and Sunday we are closed, but we still need emergency calls to come through after hours.
+
+For emergencies, the main ones are sprinkler leaks and fire alarm triggers. Sprinkler leaks are always high priority. Fire alarm triggers are also high priority. If someone calls about either of those, Clara should try to transfer the call to our dispatch line at 303-555-0172. Give it about 60 seconds for the transfer. If nobody picks up, just take a message and assure the caller we will call them back.
+
+For routing, any after hours emergency should go to that same dispatch number. During business hours, general calls can just go to our main line.
+
+One important thing is that we use ServiceTrade for our job management. Clara should not create sprinkler jobs in ServiceTrade. We just want her to log the request. Do not open a work order for sprinkler calls. That's a hard rule.
+
+If a transfer fails, take the caller's name and phone number and let them know someone will follow up within 30 minutes. That's our fallback.
+
+I think that covers everything. Oh, and the transfer destinations list should just be our dispatch number: 303-555-0172.
