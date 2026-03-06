@@ -2,27 +2,6 @@
 
 A deterministic pipeline that converts messy onboarding information (demo call transcripts, onboarding calls, chat logs, structured forms, and audio/video recordings) into a structured, versioned AI voice agent configuration for **Clara** — a Retell-based AI receptionist.
 
----
-
-## Table of Contents
-
-1. [Overview](#overview)
-2. [Architecture](#architecture)
-3. [Directory Structure](#directory-structure)
-4. [Module Reference](#module-reference)
-5. [Configuration Schema](#configuration-schema)
-6. [Pipeline Workflow](#pipeline-workflow)
-7. [Versioning Strategy](#versioning-strategy)
-8. [Merge Engine](#merge-engine)
-9. [Conflict Detection](#conflict-detection)
-10. [Change Logging](#change-logging)
-11. [Questions & Unknowns](#questions--unknowns)
-12. [Prompt Generation](#prompt-generation)
-13. [CLI Usage](#cli-usage)
-14. [Testing](#testing)
-15. [Requirements](#requirements)
-
----
 
 ## Overview
 
