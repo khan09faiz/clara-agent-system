@@ -4,35 +4,6 @@ A deterministic pipeline that converts messy onboarding information (demo call t
 
 ---
 
-## Table of Contents
-
-1. [Overview](#overview)
-2. [Architecture](#architecture)
-3. [Directory Structure](#directory-structure)
-4. [Module Reference](#module-reference)
-5. [Configuration Schema](#configuration-schema)
-6. [Pipeline Workflow](#pipeline-workflow)
-7. [Versioning Strategy](#versioning-strategy)
-8. [Merge Engine](#merge-engine)
-9. [Conflict Detection](#conflict-detection)
-10. [Change Logging](#change-logging)
-11. [Questions & Unknowns](#questions--unknowns)
-12. [Prompt Generation](#prompt-generation)
-13. [CLI Usage](#cli-usage)
-14. [Testing](#testing)
-15. [Requirements](#requirements)
-16. [Design Principles](#design-principles)
-17. [LLM Integration](#llm-integration-optional)
-18. [Batch Processing](#batch-processing)
-19. [Retell Agent Spec](#retell-agent-spec)
-20. [Changelog Generation](#changelog-generation)
-21. [Docker & n8n Workflow](#docker--n8n-workflow)
-22. [Sample Data](#sample-data)
-23. [Known Limitations](#known-limitations)
-24. [What I Would Improve](#what-i-would-improve-with-production-access)
-
----
-
 ## Overview
 
 Clara is an AI receptionist for service companies (e.g., fire protection, HVAC, electrical). She answers inbound phone calls, determines if the caller has an emergency or a general request, routes or transfers the call, and takes messages when transfers fail.
