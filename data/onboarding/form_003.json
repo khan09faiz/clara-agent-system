@@ -1,0 +1,53 @@
+{
+  "company_name": "GreenWave Electrical Contractors",
+  "timezone": "America/Chicago",
+  "business_hours": {
+    "monday": "7:00 AM - 5:00 PM",
+    "tuesday": "7:00 AM - 5:00 PM",
+    "wednesday": "7:00 AM - 5:00 PM",
+    "thursday": "7:00 AM - 5:00 PM",
+    "friday": "7:00 AM - 1:00 PM",
+    "saturday": "8:00 AM - 12:00 PM",
+    "sunday": "closed"
+  },
+  "emergency_types": [
+    {
+      "type": "power_outage",
+      "description": "Commercial or residential power outage"
+    },
+    {
+      "type": "exposed_wiring",
+      "description": "Exposed or damaged live wiring"
+    },
+    {
+      "type": "electrical_fire",
+      "description": "Sparking panel or electrical fire hazard"
+    }
+  ],
+  "routing_rules": [
+    {
+      "condition": "business hours general inquiry",
+      "destination": "832-555-7100",
+      "priority": "normal"
+    },
+    {
+      "condition": "emergency 24/7",
+      "destination": "832-555-7199",
+      "priority": "urgent",
+      "transfer_timeout_seconds": 60
+    },
+    {
+      "condition": "spanish language request",
+      "destination": "832-555-7105",
+      "priority": "normal"
+    }
+  ],
+  "transfer_destinations": ["832-555-7100", "832-555-7199", "832-555-7101", "832-555-7105", "832-555-7150"],
+  "fallback_behavior": "Take caller name, number, and issue description. Send SMS to emergency group if urgent.",
+  "integration_systems": [
+    {
+      "system": "ServiceFusion",
+      "rule": "All dispatch and job management goes through ServiceFusion"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+Agent: Good morning, welcome to our onboarding setup.
+
+Rep: Hey there. I'm Marcus Green, owner of GreenWave Electrical Contractors. We're a commercial and residential electrical company in Houston, Texas.
+
+Agent: Welcome Marcus. Walk me through your business.
+
+Rep: We do everything — commercial electrical installations, residential wiring, panel upgrades, generators, and EV charger installations. We've got about 30 technicians.
+
+Agent: How can people reach you?
+
+Rep: Main office is 832-555-7100. My direct line is 832-555-7101. Our email is info@greenwaveelectric.com. We also have a 24-hour emergency line at 832-555-7199.
+
+Agent: What types of calls do you get?
+
+Rep: During business hours, it's mostly quote requests, scheduling, and project status updates. Those go to the front office.
+
+Agent: And emergencies?
+
+Rep: Electrical emergencies are serious — power outages in commercial buildings, exposed wiring, sparking panels, electrical fires. Those are 24/7 and should go straight to 832-555-7199. If that line is busy, try my cell at 832-555-7101.
+
+Agent: What are your hours?
+
+Rep: Monday to Friday, 7 AM to 5 PM Central. We do Saturday appointments from 8 to noon for residential. Closed Sunday.
+
+Agent: Any special systems or software?
+
+Rep: We use FieldEdge for dispatching and job management. Everything needs to be in FieldEdge. We also use QuickBooks for invoicing — but the agent doesn't need to worry about that.
+
+Agent: How should your calls be answered?
+
+Rep: "Thank you for calling GreenWave Electrical, this is Clara. How can I assist you today?" Professional, upbeat.
+
+Agent: Thanks Marcus, this is a great start.

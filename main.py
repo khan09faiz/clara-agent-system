@@ -7,9 +7,11 @@ import os
 import sys
 
 from engine.change_logger import reset_change_log, get_change_log
+from engine.changelog_generator import save_changelog
 from pipeline.demo_processor import process_demo
 from pipeline.onboarding_processor import process_onboarding
 from prompt.prompt_builder import build_prompt
+from prompt.agent_spec_builder import save_agent_spec
 from versioning.version_manager import save_version, load_version
 from ingestion.chat_log_parser import parse_chat_log
 
@@ -119,6 +121,11 @@ def _run_demo(args: argparse.Namespace, logger: object) -> None:
 
     # Step 8: Write output JSON
     os.makedirs(args.output_dir, exist_ok=True)
+
+    # Step 8a: Generate and save Retell agent spec
+    spec_path = save_agent_spec(config, args.output_dir)
+    log_event(logger, "agent_spec_saved", args.client_id, file_path=spec_path)
+
     output = {
         "client_id": args.client_id,
         "agent_versions": {
@@ -186,6 +193,16 @@ def _run_onboarding(args: argparse.Namespace, logger: object) -> None:
 
     # Step 10: Write output JSON
     os.makedirs(args.output_dir, exist_ok=True)
+
+    # Step 10a: Generate and save Retell agent spec
+    spec_path = save_agent_spec(v2_config, args.output_dir)
+    log_event(logger, "agent_spec_saved", args.client_id, file_path=spec_path)
+
+    # Step 10b: Generate and save changelog
+    change_entries = get_change_log()
+    md_path, diff_path = save_changelog(v1_for_output, v2_config, change_entries, args.output_dir)
+    log_event(logger, "changelog_saved", args.client_id, md_path=md_path, diff_path=diff_path)
+
     output = {
         "client_id": args.client_id,
         "agent_versions": {

@@ -1,0 +1,31 @@
+Agent: Welcome back Marcus. Let's finalize the GreenWave Electrical configuration.
+
+Rep: Sure thing. Got a few updates.
+
+Agent: Go ahead.
+
+Rep: We just added solar panel installation to our services. So add solar installation to the service types.
+
+Agent: Done. Anything else?
+
+Rep: Yeah — for our emergency routing, if the emergency line and my cell are both unreachable after 60 seconds each, have the agent take a message and send an SMS alert to our emergency group text at 832-555-7150. That's new.
+
+Agent: Got it — three-tier emergency escalation with SMS fallback.
+
+Rep: Also, we're piloting a Spanish-language option. If someone requests Spanish, transfer them to 832-555-7105. That's our bilingual coordinator.
+
+Agent: Noted.
+
+Rep: And our Friday hours are changing. We're doing half days — 7 AM to 1 PM starting next month.
+
+Agent: Updated. Any integration changes?
+
+Rep: We switched from FieldEdge to ServiceFusion last month. Everything should reference ServiceFusion now instead.
+
+Agent: Got it. Any open questions?
+
+Rep: I'm still figuring out how we want to handle after-hours commercial jobs. Some big clients want a dedicated line. We haven't set that up yet.
+
+Agent: I'll flag that. Anything else?
+
+Rep: We're good for now.

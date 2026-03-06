@@ -1,0 +1,158 @@
+{
+  "name": "Clara Agent Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 */6 * * *"
+            }
+          ]
+        }
+      },
+      "id": "trigger-node",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "path": "/home/node/data/demo",
+        "options": {}
+      },
+      "id": "read-demo-dir",
+      "name": "Read Demo Transcripts",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [470, 200],
+      "notes": "Read demo transcript files from data/demo/"
+    },
+    {
+      "parameters": {
+        "path": "/home/node/data/onboarding",
+        "options": {}
+      },
+      "id": "read-onboarding-dir",
+      "name": "Read Onboarding Data",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [470, 400],
+      "notes": "Read onboarding transcripts and forms from data/onboarding/"
+    },
+    {
+      "parameters": {
+        "command": "cd /app && python batch_run.py --demo_dir /home/node/data/demo --onboarding_dir /home/node/data/onboarding --output_dir /home/node/output --no-llm"
+      },
+      "id": "run-pipeline",
+      "name": "Run Clara Pipeline",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [700, 300],
+      "notes": "Execute the batch pipeline. Use --no-llm for rule-based extraction, or configure LLM_BACKEND env var."
+    },
+    {
+      "parameters": {
+        "filePath": "/home/node/output/batch_summary.json",
+        "options": {}
+      },
+      "id": "read-summary",
+      "name": "Read Batch Summary",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [930, 300],
+      "notes": "Read the batch_summary.json output to check results"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json[\"total_unknowns_remaining\"]}}",
+              "operation": "larger",
+              "value2": 0
+            }
+          ]
+        }
+      },
+      "id": "check-unknowns",
+      "name": "Has Unknowns?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1150, 300]
+    },
+    {
+      "parameters": {
+        "channel": "#clara-alerts",
+        "text": "=Clara Pipeline Complete!\n\nAccounts processed: {{$json[\"accounts_processed\"]}}\nRemaining unknowns: {{$json[\"total_unknowns_remaining\"]}}\n\nReview output at /output/accounts/",
+        "options": {}
+      },
+      "id": "notify-slack",
+      "name": "Slack Notification",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [1400, 200],
+      "notes": "Configure Slack credentials in n8n. This notifies when unknowns remain."
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "status",
+              "value": "all_resolved"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "all-resolved",
+      "name": "All Resolved",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [1400, 400],
+      "notes": "No unknowns remaining — all accounts fully configured"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          { "node": "Read Demo Transcripts", "type": "main", "index": 0 },
+          { "node": "Read Onboarding Data", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Read Demo Transcripts": {
+      "main": [
+        [{ "node": "Run Clara Pipeline", "type": "main", "index": 0 }]
+      ]
+    },
+    "Read Onboarding Data": {
+      "main": [
+        [{ "node": "Run Clara Pipeline", "type": "main", "index": 0 }]
+      ]
+    },
+    "Run Clara Pipeline": {
+      "main": [
+        [{ "node": "Read Batch Summary", "type": "main", "index": 0 }]
+      ]
+    },
+    "Read Batch Summary": {
+      "main": [
+        [{ "node": "Has Unknowns?", "type": "main", "index": 0 }]
+      ]
+    },
+    "Has Unknowns?": {
+      "main": [
+        [{ "node": "Slack Notification", "type": "main", "index": 0 }],
+        [{ "node": "All Resolved", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

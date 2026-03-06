@@ -1,0 +1,33 @@
+Agent: Good afternoon, thanks for calling Apex HVAC Solutions. I'm here to help.
+
+Rep: Hi, my name is Brian Torres. I'm the operations manager at Apex HVAC Solutions. We're based out of Denver, Colorado.
+
+Agent: Great, welcome Brian. Tell me about your company.
+
+Rep: Sure. We handle heating, ventilation, and air conditioning — residential and commercial. We've been in business about 12 years. Our main number is 303-555-8200, and our office email is dispatch@apexhvac.com.
+
+Agent: Got it. What kind of calls does your company typically handle?
+
+Rep: During business hours, we get a mix — installation quotes, maintenance scheduling, general questions. Most of those should ring through to our front desk.
+
+Agent: Okay. And what about emergencies?
+
+Rep: Emergencies are a big part of what we do. If someone's furnace goes out in the middle of a Colorado winter, that's a life-safety issue. Also no cooling in summer for elderly or medical-needs clients — those are critical. We consider gas leaks or carbon monoxide detector alerts as urgent.
+
+Agent: How do you want those handled?
+
+Rep: Any emergency call should go straight to our on-call tech. Day or night, 24/7. The on-call number is 303-555-8201. If the tech doesn't pick up within 90 seconds, try the supervisor at 303-555-8202.
+
+Agent: Understood. What about after hours for non-emergencies?
+
+Rep: After hours, non-emergency calls should just go to voicemail. We'll call them back the next business day.
+
+Agent: What are your business hours?
+
+Rep: Monday through Friday, 7 AM to 6 PM Mountain Time. Saturday is 8 AM to 2 PM. Sunday we're closed unless it's an emergency.
+
+Agent: Perfect. Anything else I should know?
+
+Rep: We use ServiceTitan as our dispatch software. Any new service requests should be logged there. Also, we have a loyalty program — if someone mentions they're a member, flag that in the notes.
+
+Agent: Excellent. I think that covers the demo. Thanks Brian!

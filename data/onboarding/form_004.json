@@ -1,0 +1,56 @@
+{
+  "company_name": "Premier Plumbing & Drain",
+  "timezone": "America/Phoenix",
+  "business_hours": {
+    "monday": "8:00 AM - 5:00 PM",
+    "tuesday": "8:00 AM - 5:00 PM",
+    "wednesday": "8:00 AM - 5:00 PM",
+    "thursday": "8:00 AM - 5:00 PM",
+    "friday": "8:00 AM - 6:00 PM",
+    "saturday": "9:00 AM - 1:00 PM",
+    "sunday": "closed"
+  },
+  "emergency_types": [
+    {
+      "type": "burst_pipe",
+      "description": "Burst or leaking pipe causing active flooding"
+    },
+    {
+      "type": "sewer_backup",
+      "description": "Sewer line backup into home or business"
+    },
+    {
+      "type": "water_heater_failure",
+      "description": "Water heater failure or leak"
+    },
+    {
+      "type": "gas_line",
+      "description": "Gas line issue — SAFETY: caller must evacuate and call 911 first"
+    }
+  ],
+  "routing_rules": [
+    {
+      "condition": "business hours general inquiry",
+      "destination": "480-555-6300",
+      "priority": "normal"
+    },
+    {
+      "condition": "emergency 24/7",
+      "destination": "480-555-6399",
+      "priority": "urgent",
+      "transfer_timeout_seconds": 60
+    }
+  ],
+  "transfer_destinations": ["480-555-6300", "480-555-6399", "480-555-6305"],
+  "fallback_behavior": "Take caller name, phone number, and issue description. Promise callback within 15 minutes.",
+  "integration_systems": [
+    {
+      "system": "Jobber",
+      "rule": "All new jobs logged here (note: migrating to Housecall Pro soon)"
+    },
+    {
+      "system": "Google Calendar",
+      "rule": "On-call rotation schedule reference"
+    }
+  ]
+}

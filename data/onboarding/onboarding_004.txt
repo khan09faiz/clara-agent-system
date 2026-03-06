@@ -1,0 +1,27 @@
+Agent: Hi Lisa, welcome back. Let's finalize Premier Plumbing's configuration.
+
+Rep: Thanks! I have some changes.
+
+Agent: Shoot.
+
+Rep: First, we added tankless water heater installation as a service. It's become a big part of our business.
+
+Agent: Added. What else?
+
+Rep: Our lead plumber changed. New lead plumber number is 480-555-6305 instead of 6301.
+
+Agent: Updated.
+
+Rep: Also, I forgot — for gas line emergencies specifically, the caller should be told to evacuate the building and call 911 first. Then we'll dispatch. It's a safety protocol.
+
+Agent: Important safety note — I'll include that in the emergency definitions.
+
+Rep: And we're extending our Friday hours. Friday is now 8 AM to 6 PM instead of 5 PM, because we're doing "Fix-It Friday" promotions.
+
+Agent: Got it.
+
+Rep: One more thing — we're migrating from Jobber to Housecall Pro next month. For now, log to Jobber, but flag the migration as an upcoming change.
+
+Agent: I'll note that as an open question about the integration transition. Anything else?
+
+Rep: That covers it. Thanks!

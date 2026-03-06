@@ -7,19 +7,46 @@ __pycache__/
 dist/
 build/
 *.egg-info/
+*.egg
+*.whl
 
 # Virtual environments
 venv/
 .venv/
 env/
+ENV/
 
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 
-# Pytest
+# Pytest / coverage
 .pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
 
-# Output directories
+# Environment variables
+.env
+
+# Output directories (generated at runtime)
 output/
 versions/
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker volumes (if local)
+ollama_data/
+n8n_data/
+
+# Misc
+*.log
+*.bak
+*.tmp

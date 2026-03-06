@@ -1,0 +1,33 @@
+Agent: Hello, thank you for your interest in our service. I'm ready to learn about your business.
+
+Rep: Hi, I'm Karen Mitchell with Sentinel Security Services. We provide 24/7 commercial and residential security monitoring out of Atlanta, Georgia.
+
+Agent: Nice to meet you, Karen. Let's get started.
+
+Rep: So our main office number is 678-555-3400. Email is ops@sentinelsecurity.com. We also have a monitoring center email, monitoring@sentinelsecurity.com.
+
+Agent: What kind of calls come in?
+
+Rep: We get alarm activation calls 24/7 — those are the highest priority. If a customer's alarm goes off, our monitoring center picks it up, but sometimes customers call us directly too. Those should always go to the monitoring center at 678-555-3401 immediately.
+
+Agent: Got it. Any other types of emergencies?
+
+Rep: If a customer reports a break-in in progress or a panic alarm, that's top tier. We need to contact both our dispatch and local police. Our dispatch line is 678-555-3402.
+
+Agent: What about non-emergency calls?
+
+Rep: During business hours, general calls — billing, new installations, equipment questions — should go to our front desk at the main number. After hours, those go to voicemail.
+
+Agent: What are your hours?
+
+Rep: We're open Monday through Friday, 8 AM to 6 PM Eastern. The monitoring center is 24/7 though. Saturday 9 AM to 1 PM for sales appointments.
+
+Agent: Any integration systems?
+
+Rep: We use AlarmMaster for our monitoring station. Every alarm event needs to be logged there with a timestamp. We also use Salesforce for our CRM — new customer inquiries should create a lead there.
+
+Agent: Perfect. Any special instructions for the calling experience?
+
+Rep: The agent should always ask for the caller's account number first. If they don't have it, ask for their name and address. Be calm and reassuring, especially on alarm calls.
+
+Agent: Thanks Karen, that's very helpful.

@@ -1,0 +1,31 @@
+Agent: Welcome back, Brian. Let's finalize the configuration for Apex HVAC Solutions.
+
+Rep: Thanks. I have some updates from last time.
+
+Agent: Go ahead.
+
+Rep: First, our Saturday hours are changing. Starting next month, Saturday hours will be 8 AM to noon instead of 2 PM.
+
+Agent: Noted. Any changes to emergency handling?
+
+Rep: Yes. We added a third tier. If neither the on-call tech nor the supervisor picks up, it should go to me directly at 303-555-8210. I'm the emergency escalation point.
+
+Agent: Got it. So the chain is: on-call tech, supervisor, then you.
+
+Rep: Exactly. Also, I forgot to mention — we handle refrigeration for commercial clients too. So add commercial refrigeration to our service types.
+
+Agent: Will do. Any changes to your integration systems?
+
+Rep: Actually yes — we're also using Housecall Pro for our residential scheduling now, alongside ServiceTitan for commercial. Residential jobs should go to Housecall Pro.
+
+Agent: Got it. Anything about the greeting or how calls should be answered?
+
+Rep: The agent should answer "Thank you for calling Apex HVAC Solutions, how can I help you today?" Keep it professional but friendly.
+
+Agent: Great. Any remaining questions or things we need to figure out?
+
+Rep: I think we need to figure out the exact routing for warranty calls. We haven't set up a dedicated warranty line yet.
+
+Agent: I'll flag that as an open question. Anything else?
+
+Rep: That should cover it for now.

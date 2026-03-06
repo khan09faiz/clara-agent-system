@@ -1,0 +1,33 @@
+Agent: Hi there, thanks for connecting with us today.
+
+Rep: Hi, I'm Lisa Chen. I run Premier Plumbing & Drain out of Phoenix, Arizona.
+
+Agent: Welcome Lisa. Tell me all about Premier Plumbing.
+
+Rep: We're a full-service plumbing company — residential and light commercial. Leak repairs, water heater installations, drain cleaning, sewer line work, repiping. We've been around since 2010. Our team has about 15 plumbers.
+
+Agent: How do customers reach you?
+
+Rep: Our main office line is 480-555-6300. Scheduling email is schedule@premierplumbing.com. We also have a 24-hour emergency line, 480-555-6399.
+
+Agent: What kinds of calls come in?
+
+Rep: Normal hours, it's appointment scheduling, quote requests, follow-ups on existing work orders. After hours, it's emergencies — burst pipes, sewer backups, water heater failures, gas line issues.
+
+Agent: How should emergencies be handled?
+
+Rep: Any emergency, 24/7, should go to our emergency dispatcher at 480-555-6399. If they don't pick up in 60 seconds, try our lead plumber at 480-555-6301. If neither answers, take a message with the caller's info and promise a callback within 15 minutes.
+
+Agent: What are your business hours?
+
+Rep: Monday through Friday, 8 AM to 5 PM Arizona time — we don't do daylight saving. Saturday 9 AM to 1 PM. Sunday closed.
+
+Agent: Any software systems I should know about?
+
+Rep: We use Jobber for scheduling and invoicing. All new jobs should be logged in Jobber. We also use Google Calendar for our on-call rotation.
+
+Agent: Any special call handling instructions?
+
+Rep: If a customer says they have running water or a flood, that's top priority. The agent should say "I understand this is urgent, let me get someone on the line right away" and immediately transfer.
+
+Agent: Thanks Lisa, great information.

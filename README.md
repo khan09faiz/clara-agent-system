@@ -2,6 +2,36 @@
 
 A deterministic pipeline that converts messy onboarding information (demo call transcripts, onboarding calls, chat logs, structured forms, and audio/video recordings) into a structured, versioned AI voice agent configuration for **Clara** — a Retell-based AI receptionist.
 
+---
+
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Architecture](#architecture)
+3. [Directory Structure](#directory-structure)
+4. [Module Reference](#module-reference)
+5. [Configuration Schema](#configuration-schema)
+6. [Pipeline Workflow](#pipeline-workflow)
+7. [Versioning Strategy](#versioning-strategy)
+8. [Merge Engine](#merge-engine)
+9. [Conflict Detection](#conflict-detection)
+10. [Change Logging](#change-logging)
+11. [Questions & Unknowns](#questions--unknowns)
+12. [Prompt Generation](#prompt-generation)
+13. [CLI Usage](#cli-usage)
+14. [Testing](#testing)
+15. [Requirements](#requirements)
+16. [Design Principles](#design-principles)
+17. [LLM Integration](#llm-integration-optional)
+18. [Batch Processing](#batch-processing)
+19. [Retell Agent Spec](#retell-agent-spec)
+20. [Changelog Generation](#changelog-generation)
+21. [Docker & n8n Workflow](#docker--n8n-workflow)
+22. [Sample Data](#sample-data)
+23. [Known Limitations](#known-limitations)
+24. [What I Would Improve](#what-i-would-improve-with-production-access)
+
+---
 
 ## Overview
 
@@ -59,14 +89,26 @@ The system never hallucinates missing values. Any field that cannot be confident
 ```
 clara-agent-system/
 ├── main.py                          # CLI entry point
+├── batch_run.py                     # Batch processing for multiple accounts
 ├── requirements.txt                 # Python dependencies
 ├── README.md                        # This file
+├── .env.example                     # Environment variable template
+├── Dockerfile                       # Container build file
+├── docker-compose.yml               # Docker Compose (pipeline + Ollama + n8n)
+│
+├── data/                            # Sample input data (4 accounts)
+│   ├── demo/                        # Demo transcripts (demo_001.txt – demo_004.txt)
+│   └── onboarding/                  # Onboarding transcripts + forms
+│
+├── workflows/                       # n8n automation workflows
+│   └── n8n_workflow.json            # Importable n8n pipeline workflow
 │
 ├── ingestion/                       # Input parsing and extraction
 │   ├── __init__.py
 │   ├── audio_transcriber.py         # Whisper API integration
 │   ├── chat_log_parser.py           # Labeled chat log parsing
 │   ├── entity_extractor.py          # Regex-based entity extraction
+│   ├── llm_client.py                # Optional LLM enhancement (Groq/Ollama)
 │   └── transcript_parser.py         # Transcript normalization
 │
 ├── pipeline/                        # Stage-specific processing
@@ -78,6 +120,7 @@ clara-agent-system/
 ├── engine/                          # Merge and conflict logic
 │   ├── __init__.py
 │   ├── change_logger.py             # Change log accumulator
+│   ├── changelog_generator.py       # Markdown changelog + JSON diff generator
 │   ├── conflict_detector.py         # Conflict detection
 │   └── merge_engine.py              # Deterministic merge
 │
@@ -87,7 +130,8 @@ clara-agent-system/
 │
 ├── prompt/                          # Retell prompt generation
 │   ├── __init__.py
-│   └── prompt_builder.py            # Builds Clara system prompt
+│   ├── prompt_builder.py            # Builds Clara system prompt
+│   └── agent_spec_builder.py        # Generates Retell agent_spec.json
 │
 ├── versioning/                      # Version persistence
 │   ├── __init__.py
@@ -538,6 +582,8 @@ python -m pytest tests/ -v
 pydantic>=2.0       # Schema definitions and validation
 openai>=1.0         # Whisper API for audio transcription
 pytest>=7.0         # Test framework
+groq>=0.4.0         # Groq API client (optional LLM backend)
+python-dotenv>=1.0  # .env file loading
 ```
 
 Install:
@@ -557,4 +603,174 @@ pip install -r requirements.txt
 3. **Never hallucinate** — Missing fields are flagged as unknowns, never invented.
 4. **Auditable** — Every change is logged with field, previous value, new value, source, timestamp, and reason.
 5. **Incremental** — Versioned configs build on each other. v2 merges into v1, preserving what was already known.
+
+---
+
+## LLM Integration (Optional)
+
+The system supports optional LLM-enhanced entity extraction via three backends:
+
+| Backend | Cost | Description |
+|---------|------|-------------|
+| `rule_based` | Free | Default. Pure regex extraction — no LLM calls. |
+| `groq` | Free tier | Groq API with Llama 3 (8B). Requires `GROQ_API_KEY`. |
+| `ollama` | Free | Local Ollama instance. Requires Ollama running locally. |
+
+**How it works:** Rule-based extraction always runs first. If an LLM backend is configured, it runs in parallel and fills in any fields that regex missed. The LLM never overwrites regex-extracted values — it only fills gaps.
+
+**Configuration:** Copy `.env.example` to `.env` and set:
+
+```bash
+LLM_BACKEND=groq          # or ollama, or rule_based
+GROQ_API_KEY=gsk_...      # from https://console.groq.com
+OLLAMA_URL=http://localhost:11434
+OLLAMA_MODEL=llama3
+```
+
+**Fallback:** If the configured LLM is unreachable, the system silently falls back to rule-based extraction.
+
+---
+
+## Batch Processing
+
+Process multiple accounts in one run using `batch_run.py`:
+
+```bash
+python batch_run.py --demo_dir data/demo --onboarding_dir data/onboarding
+```
+
+**File naming convention:**
+```
+data/demo/demo_001.txt           # Demo transcript for account 1
+data/onboarding/onboarding_001.txt  # Onboarding transcript for account 1
+data/onboarding/form_001.json       # Onboarding form for account 1
+```
+
+The batch runner:
+1. Matches demo/onboarding files by numeric suffix
+2. Runs Pipeline A (demo → v1) for each account
+3. Runs Pipeline B (onboarding → v2) if onboarding data exists
+4. Generates agent specs, changelogs, and configs per account
+5. Writes a `batch_summary.json` with results
+
+**Output structure:**
+```
+output/
+├── batch_summary.json
+└── accounts/
+    ├── account_001/
+    │   ├── v1/config.json
+    │   ├── v1/account_001_v1_agent_spec.json
+    │   ├── v2/config.json
+    │   ├── v2/account_001_v2_agent_spec.json
+    │   ├── account_001_changelog.md
+    │   └── account_001_diff.json
+    └── ...
+```
+
+---
+
+## Retell Agent Spec
+
+Each pipeline run generates a `{client_id}_{version}_agent_spec.json` ready for Retell import:
+
+```json
+{
+  "agent_name": "Clara - Silverline Fire Protection",
+  "version": "v2",
+  "voice_style": { "tone": "professional, warm, calm" },
+  "system_prompt": "You are Clara, an AI receptionist for ...",
+  "key_variables": { "company_name": "...", "timezone": "..." },
+  "tool_invocation_placeholders": [
+    { "name": "transfer_call", "parameters": { "..." } },
+    { "name": "log_message", "parameters": { "..." } }
+  ],
+  "call_transfer_protocol": { "business_hours": { "..." }, "emergency": { "..." } },
+  "fallback_protocol": { "action": "...", "collect": ["..."] },
+  "retell_import_instructions": ["1. Log in to ...", "2. Go to Agents → ..."]
+}
+```
+
+---
+
+## Changelog Generation
+
+After onboarding (v1 → v2), the system generates:
+
+- **`{client_id}_changelog.md`** — Human-readable Markdown with:
+  - Summary of total changes, additions, conflict resolutions
+  - Detailed conflict resolution section
+  - Grouped change table by field category
+  - Remaining open questions
+
+- **`{client_id}_diff.json`** — Machine-readable diff for programmatic consumption
+
+---
+
+## Docker & n8n Workflow
+
+### Quick Start with Docker
+
+```bash
+# Start all services (pipeline + Ollama + n8n)
+docker-compose up -d
+
+# Run batch processing
+docker-compose run clara-pipeline
+
+# Access n8n workflow UI
+# Open http://localhost:5678
+```
+
+### n8n Workflow
+
+An importable n8n workflow is provided at `workflows/n8n_workflow.json`. It:
+1. Runs on a configurable schedule (default: every 6 hours)
+2. Reads demo and onboarding data from mounted volumes
+3. Executes the batch pipeline
+4. Checks for remaining unknowns
+5. Sends a Slack notification if unknowns remain
+
+**To import:** In n8n UI → Workflows → Import from File → select `workflows/n8n_workflow.json`.
+
+---
+
+## Sample Data
+
+The `data/` directory contains 4 complete demo + onboarding pairs for different industries:
+
+| Account | Company | Industry |
+|---------|---------|----------|
+| account_001 | Apex HVAC Solutions | HVAC (Denver, CO) |
+| account_002 | Sentinel Security Services | Security Monitoring (Atlanta, GA) |
+| account_003 | GreenWave Electrical Contractors | Electrical (Houston, TX) |
+| account_004 | Premier Plumbing & Drain | Plumbing (Phoenix, AZ) |
+
+Each account has a demo transcript, onboarding transcript, and structured form.
+
+---
+
+## Known Limitations
+
+1. **Regex-based extraction** — Entity extraction relies on regex patterns and keyword matching. Unusual phrasing or non-English input may result in missed extractions. The optional LLM backend mitigates this.
+2. **Two-version model** — The system supports v1 (demo) and v2 (onboarding) only. Production use would need support for arbitrary version chains (v3, v4, ...) as client configurations evolve.
+3. **No real-time Retell API integration** — The system generates agent specs as JSON files. Pushing configs directly to the Retell API via REST calls would require API credentials and is not yet implemented.
+4. **Audio transcription cost** — Whisper API calls cost money. No local speech-to-text fallback is implemented (could use Whisper.cpp or faster-whisper for zero-cost local transcription).
+5. **Single-language support** — Extraction patterns are English-only. Multi-language support would require i18n for regex patterns and LLM prompts.
+6. **No GUI** — All interaction is via CLI. A web UI (e.g., Streamlit or Next.js dashboard) would improve operator usability.
+7. **Conflict resolution is always incoming-wins** — No operator choice for conflict resolution. A review UI where operators can pick which value wins per conflict would be more production-ready.
+
+---
+
+## What I Would Improve with Production Access
+
+1. **Direct Retell API push** — Use the Retell REST API to create/update agents directly, eliminating the manual import step.
+2. **Groq/OpenAI hybrid extraction** — Use LLM for initial extraction pass, then validate with deterministic rules. Best of both worlds.
+3. **Streaming pipeline** — Replace batch file I/O with a message queue (Redis/RabbitMQ) for real-time processing of incoming calls.
+4. **Operator review dashboard** — A Streamlit or React web app where operators can review unknowns, resolve conflicts manually, and approve configurations before deployment.
+5. **Automated regression testing** — Run the full pipeline against a golden dataset on every commit. Compare output JSON diffs to catch regressions.
+6. **Multi-tenant database** — Replace file-based versioning with a proper database (PostgreSQL) for concurrent multi-client access.
+7. **Webhook triggers** — Trigger pipeline runs automatically when new transcripts arrive via Retell webhooks or Twilio recording callbacks.
+8. **Voice cloning integration** — Allow clients to select or clone voice profiles for their Clara agent directly from the configuration pipeline.
+9. **Analytics and monitoring** — Track call handling outcomes, measure how often fallback is triggered, and feed metrics back to improve configurations.
 6. **Human-in-the-loop** — The system generates operator review notes when unknowns remain, preventing premature deployment.

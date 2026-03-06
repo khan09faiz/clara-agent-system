@@ -1,0 +1,27 @@
+Agent: Hi Karen, let's finalize the setup for Sentinel Security Services.
+
+Rep: Great, I have a few updates.
+
+Agent: Go ahead.
+
+Rep: First, we're adding a new service line — fire monitoring. Starting next quarter we'll handle fire alarm monitoring alongside our existing security monitoring.
+
+Agent: Okay, I'll add fire monitoring to your service types.
+
+Rep: Second, for our alarm activation routing, I want to add a backup number. If the monitoring center doesn't answer within 45 seconds, try our supervisor line at 678-555-3405.
+
+Agent: 45-second timeout, then 678-555-3405. Got it.
+
+Rep: Also, I need to change our Saturday hours. We're expanding to 9 AM to 3 PM instead of 1 PM.
+
+Agent: Noted.
+
+Rep: And one more thing — for break-in-progress calls, the agent should tell the caller to stay on the line while we dispatch. Don't transfer them away. We'll conference in our dispatch.
+
+Agent: Understood. Any other changes?
+
+Rep: We're evaluating switching from AlarmMaster to Bold Manitou. For now keep AlarmMaster, but flag that as something we might change.
+
+Agent: I'll note that as an open question. Anything else?
+
+Rep: That's it for now. Thank you.

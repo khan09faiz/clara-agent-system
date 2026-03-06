@@ -1,0 +1,52 @@
+{
+  "company_name": "Apex HVAC Solutions",
+  "timezone": "America/Denver",
+  "business_hours": {
+    "monday": "7:00 AM - 6:00 PM",
+    "tuesday": "7:00 AM - 6:00 PM",
+    "wednesday": "7:00 AM - 6:00 PM",
+    "thursday": "7:00 AM - 6:00 PM",
+    "friday": "7:00 AM - 6:00 PM",
+    "saturday": "8:00 AM - 12:00 PM",
+    "sunday": "closed"
+  },
+  "emergency_types": [
+    {
+      "type": "no_heat",
+      "description": "Furnace failure in winter, life-safety risk"
+    },
+    {
+      "type": "no_cooling_medical",
+      "description": "No cooling for elderly or medical-needs clients"
+    },
+    {
+      "type": "gas_leak_co",
+      "description": "Gas leak or carbon monoxide detector alert"
+    }
+  ],
+  "routing_rules": [
+    {
+      "condition": "business hours general inquiry",
+      "destination": "303-555-8200",
+      "priority": "normal"
+    },
+    {
+      "condition": "emergency any time",
+      "destination": "303-555-8201",
+      "priority": "urgent",
+      "transfer_timeout_seconds": 90
+    }
+  ],
+  "transfer_destinations": ["303-555-8200", "303-555-8201", "303-555-8202", "303-555-8210"],
+  "fallback_behavior": "Take caller name, phone number, and brief description of issue. Assure them someone will respond within 30 minutes.",
+  "integration_systems": [
+    {
+      "system": "ServiceTitan",
+      "rule": "All commercial service requests must be logged"
+    },
+    {
+      "system": "Housecall Pro",
+      "rule": "All residential scheduling goes here"
+    }
+  ]
+}

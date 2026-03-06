@@ -1,0 +1,57 @@
+{
+  "company_name": "Sentinel Security Services",
+  "timezone": "America/New_York",
+  "business_hours": {
+    "monday": "8:00 AM - 6:00 PM",
+    "tuesday": "8:00 AM - 6:00 PM",
+    "wednesday": "8:00 AM - 6:00 PM",
+    "thursday": "8:00 AM - 6:00 PM",
+    "friday": "8:00 AM - 6:00 PM",
+    "saturday": "9:00 AM - 3:00 PM",
+    "sunday": "closed"
+  },
+  "emergency_types": [
+    {
+      "type": "alarm_activation",
+      "description": "Customer alarm triggered — immediate monitoring response"
+    },
+    {
+      "type": "break_in_progress",
+      "description": "Active break-in reported — dispatch and police contact required"
+    },
+    {
+      "type": "panic_alarm",
+      "description": "Panic button activated"
+    }
+  ],
+  "routing_rules": [
+    {
+      "condition": "business hours general inquiry",
+      "destination": "678-555-3400",
+      "priority": "normal"
+    },
+    {
+      "condition": "alarm activation 24/7",
+      "destination": "678-555-3401",
+      "priority": "urgent",
+      "transfer_timeout_seconds": 45
+    },
+    {
+      "condition": "break-in or panic alarm",
+      "destination": "678-555-3402",
+      "priority": "critical"
+    }
+  ],
+  "transfer_destinations": ["678-555-3400", "678-555-3401", "678-555-3402", "678-555-3405"],
+  "fallback_behavior": "Ask for account number or name/address. Take details. Assure caller help is on the way.",
+  "integration_systems": [
+    {
+      "system": "AlarmMaster",
+      "rule": "All alarm events must be logged with timestamp"
+    },
+    {
+      "system": "Salesforce",
+      "rule": "New customer inquiries create a lead"
+    }
+  ]
+}
