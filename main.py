@@ -99,6 +99,16 @@ def _run_demo(args: argparse.Namespace, logger: object) -> None:
             transcript=transcript_text,
         )
 
+    # Step 5b: Log extracted entities
+    log_event(
+        logger, "entities_extracted", args.client_id,
+        company_name=config.client_info.company_name,
+        contact_name=config.client_info.contact_name,
+        phone=config.client_info.phone,
+        emails=config.client_info.emails,
+        emergency_count=len(config.emergency_definitions),
+    )
+
     # Step 6: Save version
     file_path = save_version(config, args.versions_dir)
     log_event(logger, "version_saved", args.client_id, version="v1", file_path=file_path)
